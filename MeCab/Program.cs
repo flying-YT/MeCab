@@ -107,7 +107,7 @@ namespace MeCab
             }
 
             NGWord NG = new NGWord();
-            for(int i=0;i<5;i++)
+            for(int i=0;i<7;i++)
             {
                 int max = 0;
                 int maxIndex = 0;
