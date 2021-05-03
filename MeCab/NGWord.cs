@@ -40,17 +40,17 @@ namespace MeCab
         public bool CheckNG(string str)
         {
             bool b = false;
-            foreach(string ngStr in ngWordList)
+            if (Regex.IsMatch(str, @"^[\d]+$"))
+            {
+                return true;
+            }
+            foreach (string ngStr in ngWordList)
             {
                 if (str == ngStr)
                 {
                     b = true;
                     break;
                 }
-            }
-            if (Regex.IsMatch(str, @"^[\d]+$"))
-            {
-                b = true;
             }
             return b;
         }

@@ -10,14 +10,12 @@ namespace MeCab
         static void Main(string[] args)
         {
             List<string> nounList = new List<string>();
-            Console.WriteLine("Hello World!");
             string[] files = Directory.GetFiles(@"D:\データ収集\csv", "*.csv");
             foreach(string file in files)
             {
                 List<string> newsTextList = ReadCSV(file);
                 foreach(string newsText in newsTextList)
                 {
-//                    Console.WriteLine("newsText:" + newsText);
                     nounList.Add(ExtractionNoun(newsText));
                 }
             }
@@ -35,7 +33,6 @@ namespace MeCab
             {
                 if(0 < node.CharType)
                 {
-//                    Console.WriteLine("node.Feature:" + node.Feature);
                     if(node.Feature.Contains("名詞"))
                     {
                         resultText += node.Surface + ",";
@@ -53,7 +50,6 @@ namespace MeCab
             {
                 string[] values = sr.ReadLine().Split(',');
                 _list.Add(values[1]);
-//                Console.WriteLine("values[1]:" + values[1]);
             }
             sr.Close();
             return _list;
@@ -82,7 +78,6 @@ namespace MeCab
                     bool judge = true;
                     foreach (AggregateData aggregateData in _list)
                     {
-                        //                        if (aggregateData.Word == _noun)
                         if (aggregateData.Word == str)
                         {
                             judge = false;
@@ -90,10 +85,8 @@ namespace MeCab
                         }
                         count++;
                     }
-//                    Console.WriteLine("str:" + str);
                     if (judge)
                     {
-                        //                        _list.Add(new AggregateData { Word = _noun, Count = 1 });
                         _list.Add(new AggregateData { Word = str, Count = 1 });
                     }
                     else
@@ -103,7 +96,6 @@ namespace MeCab
                         _list.Add(new AggregateData { Word = _aggregateData.Word, Count = _aggregateData.Count + 1 });
                     }
                 }
-                //Console.ReadKey();
             }
 
             NGWord NG = new NGWord();
