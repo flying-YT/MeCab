@@ -21,6 +21,7 @@ namespace MeCab
             ngWordList.Add("年");
             ngWordList.Add("日");
             ngWordList.Add("月");
+            ngWordList.Add("時");
             ngWordList.Add("者");
             ngWordList.Add("県");
             ngWordList.Add("市");

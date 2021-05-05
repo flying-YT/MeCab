@@ -99,7 +99,8 @@ namespace MeCab
             }
 
             NGWord NG = new NGWord();
-            for(int i=0;i<7;i++)
+            List<AggregateData> dataList = new List<AggregateData>();
+            for(int i=0;i<15;i++)
             {
                 int max = 0;
                 int maxIndex = 0;
@@ -120,9 +121,13 @@ namespace MeCab
                 else
                 {
                     Console.WriteLine("名詞：" + _list[maxIndex].Word + " 回数：" + _list[maxIndex].Count);
+                    dataList.Add(new AggregateData() { Word = _list[maxIndex].Word, Count = _list[maxIndex].Count });
                 }
                 _list.RemoveAt(maxIndex);
             }
+
+            WordCloud wordCloud = new WordCloud(200, 100);
+            wordCloud.MakeImg(dataList);
         }
     }
 
