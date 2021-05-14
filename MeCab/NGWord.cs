@@ -29,7 +29,9 @@ namespace MeCab
             ngWordList.Add("中");
             ngWordList.Add("後");
             ngWordList.Add("的");
+            ngWordList.Add("回");
             ngWordList.Add("の");
+            ngWordList.Add("ん");
             ngWordList.Add("こと");
             ngWordList.Add("さん");
             ngWordList.Add("よう");

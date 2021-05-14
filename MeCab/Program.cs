@@ -126,7 +126,7 @@ namespace MeCab
                 _list.RemoveAt(maxIndex);
             }
 
-            WordCloud wordCloud = new WordCloud(200, 100);
+            WordCloud wordCloud = new WordCloud(400, 200);
             wordCloud.MakeImg(dataList);
         }
     }
