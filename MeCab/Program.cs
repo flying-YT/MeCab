@@ -7,11 +7,20 @@ namespace MeCab
 {
     class Program
     {
+        static readonly int indicateWordCount = 35;
+        private static string csvPath;
+        private static string outputPath;
+
         static void Main(string[] args)
         {
             List<string> nounList = new List<string>();
-            string[] files = Directory.GetFiles(@"D:\データ収集\csv", "*.csv");
-            foreach(string file in files)
+            Console.WriteLine("読み込むCSVファイルのパスを入力してください。");
+            csvPath = Console.ReadLine();
+            Console.WriteLine("出力先のパスを入力してください。");
+            outputPath = Console.ReadLine();
+            string[] files = Directory.GetFiles(csvPath, "*.csv");
+
+            foreach (string file in files)
             {
                 List<string> newsTextList = ReadCSV(file);
                 foreach(string newsText in newsTextList)
@@ -58,7 +67,7 @@ namespace MeCab
         private static void WriteData(List<string> _nounList)
         {
             StreamWriter sw = new StreamWriter(@"D:\データ収集\data.txt", false, Encoding.UTF8);
-            foreach(string _noun in _nounList)
+            foreach (string _noun in _nounList)
             {
                 sw.WriteLine(_noun);
             }
@@ -100,7 +109,7 @@ namespace MeCab
 
             NGWord NG = new NGWord();
             List<AggregateData> dataList = new List<AggregateData>();
-            for(int i=0;i<15;i++)
+            for(int i=0;i<indicateWordCount;i++)
             {
                 int max = 0;
                 int maxIndex = 0;
@@ -127,7 +136,7 @@ namespace MeCab
             }
 
             WordCloud wordCloud = new WordCloud(400, 200);
-            wordCloud.MakeImg(dataList);
+            wordCloud.MakeImg(dataList, outputPath);
         }
     }
 

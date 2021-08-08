@@ -7,6 +7,7 @@ namespace MeCab
 {
     public class WordCloud
     {
+        private readonly int maxWordSize = 500;
         readonly Bitmap img = null;
         readonly Bitmap demo = null;
         readonly Graphics g;
@@ -14,6 +15,8 @@ namespace MeCab
         Random rnd = new Random();
         string font = "MS UI Gothic";
         readonly int width;
+
+
         readonly int height;
 
         bool[,] png = null;
@@ -34,18 +37,17 @@ namespace MeCab
             font = _font;
         }
 
-        private void DrawWord(AggregateData aggregate, int _maxCount)
+        private void DrawWord(AggregateData aggregate, int _maxCount)                           // 文字を描画する
         {
             double ratio = (double)aggregate.Count / (double)_maxCount;
-            Console.WriteLine("ratio:" + ratio);
-            int size = (int)Math.Round(250 * ratio);
+            //            int size = (int)Math.Round(400 * ratio);
+            int size = (int)Math.Round(maxWordSize * ratio);
             bool b = true;
             while(b)
             {
                 int x = rnd.Next(0, width - 80);
                 int y = rnd.Next(0, height - 50);
                 demoG.DrawString(aggregate.Word, new Font(font, size), Brushes.Blue, x, y);
-                Console.WriteLine("demo:" + aggregate.Word);
                 if(CheckMeasureSize(aggregate.Word, new Font(font, size), x, y))
                 {
                     g.DrawString(aggregate.Word, new Font(font, size), Brushes.Blue, x, y);
@@ -56,13 +58,18 @@ namespace MeCab
 
         }
 
-        private bool CheckMeasureSize(string str, Font fontData, int x, int y)
+        private bool CheckMeasureSize(string str, Font fontData, int x, int y)  // 描画文字と位置を計測し、範囲内かほかの文字と重なっていないか確認する。
         {
             bool b = true;
             var size2 = demoG.MeasureString(str, fontData);
-            Console.WriteLine("x=" + x + "~" + (x+size2.Width));
-            Console.WriteLine("y=" + y + "~" + (y+size2.Height));
-
+            if(height <= size2.Height+y )
+            {
+                return false;
+            }
+            else if(width <= size2.Width+x)
+            {
+                return false;
+            }
             for (int i = y; i < size2.Height+y; i++)
             {
                 for (int w = x; w < size2.Width+x; w++)
@@ -77,7 +84,7 @@ namespace MeCab
             return b;
         }
 
-        private void SetMeasureSize(string str, Font fontData, int x, int y)
+        private void SetMeasureSize(string str, Font fontData, int x, int y)    // 描画位置を配列に格納する
         {
             var size2 = g.MeasureString(str, fontData);
             for (int i = y; i < size2.Height+y; i++)
@@ -89,7 +96,7 @@ namespace MeCab
             }
         }
 
-        public void MakeImg(List<AggregateData> _list)
+        public void MakeImg(List<AggregateData> _list, string outputPath)                          // 画像を出力する
         {
             g.FillRectangle(Brushes.White, g.VisibleClipBounds);
 
@@ -104,7 +111,8 @@ namespace MeCab
                 DrawWord(data, maxCount);
             }
 
-            img.Save(@"D:\データ収集\data.png");
+            string path = outputPath + "\\data.png";
+            img.Save(path);
         }
 
         private void ReleaseResources()
