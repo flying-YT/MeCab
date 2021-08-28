@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace MeCab
 {
-    public class NGWord
+    public class NGWord     // 形態素解析データから取り除く文字列を扱うクラス
     {
         readonly List<string> ngWordList = new List<string>();
 
@@ -44,10 +44,16 @@ namespace MeCab
             ngWordList.Add("今");
             ngWordList.Add("位");
             ngWordList.Add("初");
+            ngWordList.Add("方");
+            ngWordList.Add("以上");
+            ngWordList.Add("午前");
+            ngWordList.Add("午後");
             ngWordList.Add("お");
+            ngWordList.Add("さ");
             ngWordList.Add("ら");
             ngWordList.Add("の");
             ngWordList.Add("ん");
+            ngWordList.Add("それ");
             ngWordList.Add("こと");
             ngWordList.Add("これ");
             ngWordList.Add("さん");
@@ -56,6 +62,7 @@ namespace MeCab
             ngWordList.Add("たち");
             ngWordList.Add("％");
             ngWordList.Add("・");
+            ngWordList.Add(".");
         }
 
         public bool CheckNG(string str)

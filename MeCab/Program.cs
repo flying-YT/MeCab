@@ -7,9 +7,9 @@ namespace MeCab
 {
     class Program
     {
-        static readonly int indicateWordCount = 35;
-        private static string csvPath;
-        private static string outputPath;
+        private static readonly int indicateWordCount = 40;     // 表示するワード数
+        private static string csvPath;                          // 読み込むファイルのパス
+        private static string outputPath;                       // 書き出す先のパス
 
         static void Main(string[] args)
         {
@@ -33,7 +33,7 @@ namespace MeCab
         }
 
 
-        private static string ExtractionNoun(string text)
+        private static string ExtractionNoun(string text)           // 名詞で形態素解析を行う
         {
             string resultText = "";
 
@@ -51,7 +51,7 @@ namespace MeCab
             return resultText.TrimEnd(',');
         }
 
-        private static List<string> ReadCSV(string filePath)
+        private static List<string> ReadCSV(string filePath)                // 引数のファイルパスのcsvファイルを読み込む
         {
             List<string> _list = new List<string>();
             StreamReader sr = new StreamReader(filePath, Encoding.UTF8);
@@ -64,8 +64,8 @@ namespace MeCab
             return _list;
         }
 
-        private static void WriteData(List<string> _nounList)
-        {
+        private static void WriteData(List<string> _nounList)               // 形態素解析後のデータを一時的にファイル出力する
+        {  
             StreamWriter sw = new StreamWriter(@"D:\データ収集\data.txt", false, Encoding.UTF8);
             foreach (string _noun in _nounList)
             {
@@ -74,7 +74,7 @@ namespace MeCab
             sw.Close();
         }
 
-        private static void Aggregate(List<string> _nounList)
+        private static void Aggregate(List<string> _nounList)               // 形態素解析後の名詞データを集計する
         {
             List<AggregateData> _list = new List<AggregateData>();
 

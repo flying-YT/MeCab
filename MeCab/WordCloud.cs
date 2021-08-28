@@ -7,7 +7,7 @@ namespace MeCab
 {
     public class WordCloud
     {
-        private readonly int maxWordSize = 500;
+        private readonly int maxWordSize = 500;     // 最大文字サイズ
         readonly Bitmap img = null;
         readonly Bitmap demo = null;
         readonly Graphics g;
@@ -94,6 +94,7 @@ namespace MeCab
                     png[i, w] = true;
                 }
             }
+            Console.WriteLine("配置str:" + str );
         }
 
         public void MakeImg(List<AggregateData> _list, string outputPath)                          // 画像を出力する
