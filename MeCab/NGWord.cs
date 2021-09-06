@@ -45,6 +45,11 @@ namespace MeCab
             ngWordList.Add("位");
             ngWordList.Add("初");
             ngWordList.Add("方");
+            ngWordList.Add("戦");
+            ngWordList.Add("私");
+            ngWordList.Add("何");
+            ngWordList.Add("度");
+            ngWordList.Add("手");
             ngWordList.Add("以上");
             ngWordList.Add("午前");
             ngWordList.Add("午後");
@@ -53,6 +58,7 @@ namespace MeCab
             ngWordList.Add("ら");
             ngWordList.Add("の");
             ngWordList.Add("ん");
+            ngWordList.Add("ご");
             ngWordList.Add("それ");
             ngWordList.Add("こと");
             ngWordList.Add("これ");

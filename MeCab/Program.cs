@@ -29,7 +29,9 @@ namespace MeCab
                 }
             }
             WriteData(nounList);
-            Aggregate(nounList);
+//            Aggregate(nounList);
+            WordCloud wordCloud = new WordCloud(400, 200);
+            wordCloud.MakeImg(ListAggregate(nounList), outputPath);
         }
 
 
@@ -72,6 +74,76 @@ namespace MeCab
                 sw.WriteLine(_noun);
             }
             sw.Close();
+        }
+
+        private static List<string> MakeNounList(List<string> _list)
+        {
+            List<string> list = new List<string>();
+            foreach(string str in _list)
+            {
+                string[] strArray = str.Split(",");
+                foreach(string s in strArray)
+                {
+                    list.Add(s);
+                }
+            }
+            return list;
+        }
+
+        private static List<AggregateData> ListAggregate(List<string> _nounList) // 集計サンプルメソッド
+        {
+            //            List<string> sampleList = _nounList;
+            List<string> sampleList = MakeNounList(_nounList);
+            List <AggregateData> _list = new List<AggregateData>();
+            NGWord ng = new NGWord();
+
+            while(sampleList.Count > 0)
+            {
+                int count = 0;
+                string str = sampleList[0];
+                foreach(string listStr in sampleList)       // 同じ語句の個数をカウントする
+                {
+                    if(str == listStr)
+                    {
+                        count++;
+                    }
+                }
+                for(int i=0;i<count;i++)                    // カウントした語句はリストから削除する
+                {
+                    sampleList.Remove(str);
+                }
+                if(!ng.CheckNG(str))                         // NGリストにない場合
+                {
+                    _list.Add(new AggregateData { Word = str, Count = count });     // カウント済みリストに追加する
+                }
+            }
+            Console.WriteLine("個数：" + _list.Count);
+
+            List<AggregateData> returnList = new List<AggregateData>();
+            for(int i=0;i<indicateWordCount;i++)             // 回数が多い順にlistを作成
+            {
+                int max = 0;
+                int maxIndex = 0;
+                int count = 0;
+                foreach (AggregateData _aggregateData in _list)
+                {
+                    if (max < _aggregateData.Count)
+                    {
+                        max = _aggregateData.Count;
+                        maxIndex = count;
+                    }
+                    count++;
+                }
+                returnList.Add(new AggregateData { Word = _list[maxIndex].Word, Count = _list[maxIndex].Count});
+                _list.RemoveAt(maxIndex);
+            }
+
+            foreach (AggregateData data in returnList)
+            {
+                Console.WriteLine("word:" + data.Word + " 回数：" + data.Count);
+            }
+
+            return returnList;
         }
 
         private static void Aggregate(List<string> _nounList)               // 形態素解析後の名詞データを集計する
