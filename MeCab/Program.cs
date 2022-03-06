@@ -7,7 +7,7 @@ namespace MeCab
 {
     class Program
     {
-        private static readonly int indicateWordCount = 50;     // 表示するワード数
+        private static readonly int indicateWordCount = 75;     // 表示するワード数　50
         private static string csvPath;                          // 読み込むファイルのパス
         private static string outputPath;                       // 書き出す先のパス
 
@@ -22,6 +22,7 @@ namespace MeCab
 
             foreach (string file in files)
             {
+                Console.WriteLine("file:" + file);
                 List<string> newsTextList = ReadCSV(file);
                 foreach(string newsText in newsTextList)
                 {

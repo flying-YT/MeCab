@@ -7,7 +7,7 @@ namespace MeCab
 {
     public class WordCloud
     {
-        private readonly int maxWordSize = 600;     // 最大文字サイズ 500
+        private readonly int maxWordSize = 650;     // 最大文字サイズ 500
         readonly Bitmap img = null;
         readonly Bitmap demo = null;
         readonly Graphics g;
@@ -87,9 +87,9 @@ namespace MeCab
         private void SetMeasureSize(string str, Font fontData, int x, int y)    // 描画位置を配列に格納する
         {
             var size2 = g.MeasureString(str, fontData);
-            for (int i = y+2; i < size2.Height+y-2; i++)    // +2 -2
+            for (int i = y+0; i < size2.Height+y-0; i++)    // +2 -2
             {
-                for (int w = x+5 ; w < size2.Width+x-5; w++) // +5 -5
+                for (int w = x+4 ; w < size2.Width+x-4; w++) // +5 -5
                 {
                     png[i, w] = true;
                 }

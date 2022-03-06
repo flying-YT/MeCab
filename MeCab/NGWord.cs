@@ -56,6 +56,12 @@ namespace MeCab
             ngWordList.Add("側");
             ngWordList.Add("代");
             ngWordList.Add("町");
+            ngWordList.Add("派");
+            ngWordList.Add("件");
+            ngWordList.Add("億");
+            ngWordList.Add("所");
+            ngWordList.Add("点");
+            ngWordList.Add("数");
             ngWordList.Add("以上");
             ngWordList.Add("午前");
             ngWordList.Add("午後");
@@ -65,6 +71,7 @@ namespace MeCab
             ngWordList.Add("の");
             ngWordList.Add("ん");
             ngWordList.Add("ご");
+            ngWordList.Add("新た");
             ngWordList.Add("それ");
             ngWordList.Add("こと");
             ngWordList.Add("これ");
@@ -73,9 +80,12 @@ namespace MeCab
             ngWordList.Add("ため");
             ngWordList.Add("たち");
             ngWordList.Add("もの");
+            ngWordList.Add("キロ");
             ngWordList.Add("％");
             ngWordList.Add("・");
             ngWordList.Add(".");
+            ngWordList.Add("(");
+            ngWordList.Add(")");
         }
 
         public bool CheckNG(string str)
