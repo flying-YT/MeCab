@@ -8,6 +8,7 @@ namespace MeCab
     public class WordCloud
     {
         private readonly int maxWordSize = 650;     // 最大文字サイズ 500
+        private readonly int minWordSize = 7;
         readonly Bitmap img = null;
         readonly Bitmap demo = null;
         readonly Graphics g;
@@ -15,8 +16,6 @@ namespace MeCab
         Random rnd = new Random();
         string font = "MS UI Gothic";
         readonly int width;
-
-
         readonly int height;
 
         bool[,] png = null;
@@ -40,22 +39,46 @@ namespace MeCab
         private void DrawWord(AggregateData aggregate, int _maxCount)                           // 文字を描画する
         {
             double ratio = (double)aggregate.Count / (double)_maxCount;
-            //            int size = (int)Math.Round(400 * ratio);
-            int size = (int)Math.Round(maxWordSize * ratio);
+            //            int size = (int)Math.Round(maxWordSize * ratio);
+            int size = MeasurementWordSize(ratio);
             bool b = true;
             while(b)
             {
                 int x = rnd.Next(0, width - 80);
                 int y = rnd.Next(0, height - 50);
-                demoG.DrawString(aggregate.Word, new Font(font, size), Brushes.Blue, x, y);
-                if(CheckMeasureSize(aggregate.Word, new Font(font, size), x, y))
+                //                demoG.DrawString(aggregate.Word, new Font(font, size), Brushes.Blue, x, y);
+                demoG.DrawString(aggregate.Word, new Font(font, size), FontColor(), x, y);
+                if (CheckMeasureSize(aggregate.Word, new Font(font, size), x, y))
                 {
-                    g.DrawString(aggregate.Word, new Font(font, size), Brushes.Blue, x, y);
+                    // g.DrawString(aggregate.Word, new Font(font, size), Brushes.Blue, x, y);
+                    g.DrawString(aggregate.Word, new Font(font, size), FontColor(), x, y);
                     SetMeasureSize(aggregate.Word, new Font(font, size), x, y);
                     b = false;
                 }
             }
 
+        }
+
+        private Brush FontColor()
+        {
+            int n = rnd.Next(3);
+            switch(n)
+            {
+                case 0: return Brushes.Aqua;
+                case 1: return Brushes.SpringGreen;
+                case 2: return Brushes.Magenta;
+                default: return Brushes.Blue;
+            }
+        }
+
+        private int MeasurementWordSize(double _ratio)              // フォントサイズの最小値を決める
+        {
+            int size = (int)Math.Round(maxWordSize * _ratio);
+            if(size < minWordSize)
+            {
+                size = minWordSize;
+            }
+            return size;
         }
 
         private bool CheckMeasureSize(string str, Font fontData, int x, int y)  // 描画文字と位置を計測し、範囲内かほかの文字と重なっていないか確認する。
