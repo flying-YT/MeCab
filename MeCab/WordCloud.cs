@@ -7,8 +7,8 @@ namespace MeCab
 {
     public class WordCloud
     {
-        private readonly int maxWordSize = 650;     // 最大文字サイズ 500
-        private readonly int minWordSize = 7;
+        private readonly int maxWordSize = 800;     // 最大文字サイズ 500
+        private readonly int minWordSize = 8;
         readonly Bitmap img = null;
         readonly Bitmap demo = null;
         readonly Graphics g;
@@ -44,8 +44,8 @@ namespace MeCab
             bool b = true;
             while(b)
             {
-                int x = rnd.Next(0, width - 80);
-                int y = rnd.Next(0, height - 50);
+                int x = rnd.Next(0, width - 30);
+                int y = rnd.Next(0, height - 30);
                 //                demoG.DrawString(aggregate.Word, new Font(font, size), Brushes.Blue, x, y);
                 demoG.DrawString(aggregate.Word, new Font(font, size), FontColor(), x, y);
                 if (CheckMeasureSize(aggregate.Word, new Font(font, size), x, y))
