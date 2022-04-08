@@ -7,7 +7,7 @@ namespace MeCab
 {
     class Program
     {
-        private static readonly int indicateWordCount = 100;     // 表示するワード数　50
+        private static readonly int indicateWordCount = 100;     // 表示するワード数　100
         private static string csvPath;                          // 読み込むファイルのパス
         private static string outputPath;                       // 書き出す先のパス
 

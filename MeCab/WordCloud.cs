@@ -7,7 +7,7 @@ namespace MeCab
 {
     public class WordCloud
     {
-        private readonly int maxWordSize = 800;     // 最大文字サイズ 500
+        private readonly int maxWordSize = 750;     // 最大文字サイズ 500
         private readonly int minWordSize = 8;
         readonly Bitmap img = null;
         readonly Bitmap demo = null;
@@ -42,10 +42,11 @@ namespace MeCab
             //            int size = (int)Math.Round(maxWordSize * ratio);
             int size = MeasurementWordSize(ratio);
             bool b = true;
+            int count = 0;
             while(b)
             {
-                int x = rnd.Next(0, width - 30);
-                int y = rnd.Next(0, height - 30);
+                int x = rnd.Next(0, width - 20);
+                int y = rnd.Next(0, height - 20);
                 //                demoG.DrawString(aggregate.Word, new Font(font, size), Brushes.Blue, x, y);
                 demoG.DrawString(aggregate.Word, new Font(font, size), FontColor(), x, y);
                 if (CheckMeasureSize(aggregate.Word, new Font(font, size), x, y))
@@ -53,6 +54,11 @@ namespace MeCab
                     // g.DrawString(aggregate.Word, new Font(font, size), Brushes.Blue, x, y);
                     g.DrawString(aggregate.Word, new Font(font, size), FontColor(), x, y);
                     SetMeasureSize(aggregate.Word, new Font(font, size), x, y);
+                    b = false;
+                }
+                count++;
+                if(count >= 100) // 複数回描画できなかったら強制的に次の文字に移行
+                {
                     b = false;
                 }
             }
@@ -77,6 +83,10 @@ namespace MeCab
             if(size < minWordSize)
             {
                 size = minWordSize;
+            }
+            else if(size > (maxWordSize*0.055))
+            {
+                size = ((int)(maxWordSize * 0.055));
             }
             return size;
         }
