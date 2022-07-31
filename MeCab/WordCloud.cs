@@ -39,7 +39,6 @@ namespace MeCab
         private void DrawWord(AggregateData aggregate, int _maxCount)                           // 文字を描画する
         {
             double ratio = (double)aggregate.Count / (double)_maxCount;
-            //            int size = (int)Math.Round(maxWordSize * ratio);
             int size = MeasurementWordSize(ratio);
             bool b = true;
             int count = 0;
@@ -68,13 +67,13 @@ namespace MeCab
         private Brush FontColor()
         {
             int n = rnd.Next(3);
-            switch(n)
+            return n switch
             {
-                case 0: return Brushes.Aqua;
-                case 1: return Brushes.SpringGreen;
-                case 2: return Brushes.Magenta;
-                default: return Brushes.Blue;
-            }
+                0 => Brushes.Aqua,
+                1 => Brushes.SpringGreen,
+                2 => Brushes.Magenta,
+                _ => Brushes.Blue,
+            };
         }
 
         private int MeasurementWordSize(double _ratio)              // フォントサイズの最小値を決める
@@ -84,9 +83,9 @@ namespace MeCab
             {
                 size = minWordSize;
             }
-            else if(size > (maxWordSize*0.055))
+            else if(size > (maxWordSize*0.065))
             {
-                size = ((int)(maxWordSize * 0.055));
+                size = ((int)(maxWordSize * 0.065));
             }
             return size;
         }

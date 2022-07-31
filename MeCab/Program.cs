@@ -30,7 +30,6 @@ namespace MeCab
                 }
             }
             WriteData(nounList);
-//            Aggregate(nounList);
             WordCloud wordCloud = new WordCloud(400, 200);
             wordCloud.MakeImg(ListAggregate(nounList), outputPath);
         }
@@ -93,7 +92,6 @@ namespace MeCab
 
         private static List<AggregateData> ListAggregate(List<string> _nounList) // 集計サンプルメソッド
         {
-            //            List<string> sampleList = _nounList;
             List<string> sampleList = MakeNounList(_nounList);
             List <AggregateData> _list = new List<AggregateData>();
             NGWord ng = new NGWord();
@@ -145,71 +143,6 @@ namespace MeCab
             }
 
             return returnList;
-        }
-
-        private static void Aggregate(List<string> _nounList)               // 形態素解析後の名詞データを集計する
-        {
-            List<AggregateData> _list = new List<AggregateData>();
-
-            foreach(string _noun in _nounList)
-            {
-                string[] strArray = _noun.Split(",");
-                foreach(string str in strArray)
-                {
-                    int count = 0;
-                    bool judge = true;
-                    foreach (AggregateData aggregateData in _list)
-                    {
-                        if (aggregateData.Word == str)
-                        {
-                            judge = false;
-                            break;
-                        }
-                        count++;
-                    }
-                    if (judge)
-                    {
-                        _list.Add(new AggregateData { Word = str, Count = 1 });
-                    }
-                    else
-                    {
-                        AggregateData _aggregateData = _list[count];
-                        _list.RemoveAt(count);
-                        _list.Add(new AggregateData { Word = _aggregateData.Word, Count = _aggregateData.Count + 1 });
-                    }
-                }
-            }
-
-            NGWord NG = new NGWord();
-            List<AggregateData> dataList = new List<AggregateData>();
-            for(int i=0;i<indicateWordCount;i++)
-            {
-                int max = 0;
-                int maxIndex = 0;
-                int count = 0;
-                foreach (AggregateData _aggregateData in _list)
-                {
-                    if (max < _aggregateData.Count)
-                    {
-                        max = _aggregateData.Count;
-                        maxIndex = count;
-                    }
-                    count++;
-                }
-                if (NG.CheckNG(_list[maxIndex].Word))
-                {
-                    i--;
-                }
-                else
-                {
-                    Console.WriteLine("名詞：" + _list[maxIndex].Word + " 回数：" + _list[maxIndex].Count);
-                    dataList.Add(new AggregateData() { Word = _list[maxIndex].Word, Count = _list[maxIndex].Count });
-                }
-                _list.RemoveAt(maxIndex);
-            }
-
-            WordCloud wordCloud = new WordCloud(400, 200);
-            wordCloud.MakeImg(dataList, outputPath);
         }
     }
 
